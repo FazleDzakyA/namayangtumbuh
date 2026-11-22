@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-ivory: #F5F0E8;
+    --color-paper: #EDE5D9;
+    --color-beige: #DED2C2;
+    --color-sage: #A8B5A0;
+    --color-dusty-blue: #777C91;
+    --color-dark-ink: #37332F;
+    --color-muted-brown: #9A8876;
+    
+    --bg-novel: #F5F0E8;
+    --text-novel: #37332F;
+    --border-novel: #DED2C2;
+    --accent-sage: #A8B5A0;
+    --accent-blue: #777C91;
+  }
+
+  [data-theme="paper"] {
+    --bg-novel: #EDE5D9;
+    --text-novel: #37332F;
+    --border-novel: #D8CCC0;
+  }
+
+  [data-theme="sepia"] {
+    --bg-novel: #E8DCB8;
+    --text-novel: #2E2721;
+    --border-novel: #D4C3A3;
+  }
+
+  [data-theme="dark"] {
+    --bg-novel: #1E1B18;
+    --text-novel: #E6DFD5;
+    --border-novel: #3E3935;
+  }
+}
+
+body {
+  background-color: var(--bg-novel);
+  color: var(--text-novel);
+  font-family: var(--font-lora), serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Paper Texture Overlay */
+.paper-texture {
+  background-color: var(--bg-novel);
+  background-image: radial-gradient(rgba(55, 51, 47, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Subtle Book Spine Shadow */
+.book-spine-shadow {
+  box-shadow: inset 24px 0 35px -15px rgba(55, 51, 47, 0.07),
+              inset -24px 0 35px -15px rgba(55, 51, 47, 0.07);
+}
+
+/* Drop Cap Styling */
+.dropcap::first-letter {
+  font-family: var(--font-cormorant), serif;
+  float: left;
+  font-size: 3.8rem;
+  line-height: 0.85;
+  padding-top: 4px;
+  padding-right: 12px;
+  padding-bottom: 2px;
+  color: #37332F;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .dropcap::first-letter {
+  color: #E6DFD5;
+}
+
+/* Perforated Concert Ticket Effect */
+.ticket-edge {
+  position: relative;
+  background-color: #23201D;
+  background-image: radial-gradient(#1E1B18 10px, transparent 11px);
+  background-size: 24px 24px;
+}
+
+/* Polaroid Shadow */
+.polaroid-shadow {
+  box-shadow: 0 10px 25px -5px rgba(55, 51, 47, 0.12),
+              0 8px 10px -6px rgba(55, 51, 47, 0.08);
+}
+
+/* Custom Subtle Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(154, 136, 118, 0.35);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(154, 136, 118, 0.6);
+}
+
+/* Delicate Selection */
+::selection {
+  background-color: #A8B5A0;
+  color: #F5F0E8;
+}
+
+/* Font helpers */
+.font-cormorant {
+  font-family: var(--font-cormorant), serif;
+}
+
+.font-lora {
+  font-family: var(--font-lora), serif;
+}
+
+.font-sans-ui {
+  font-family: var(--font-sans), sans-serif;
+}
+
+.font-handwriting {
+  font-family: var(--font-handwriting), cursive;
+}
+
+/* Hide Next.js Dev Badge (N logo at bottom left/right) */
+nextjs-portal,
+[data-nextjs-toast],
+[data-nextjs-dev-overlay-root],
+#__next-build-watcher,
+div[data-nextjs-dev-indicator],
+button[aria-label="Next.js Dev Indicator"],
+button[data-nextjs-dev-tools-button] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
