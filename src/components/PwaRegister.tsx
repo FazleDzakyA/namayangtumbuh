@@ -74,9 +74,12 @@ export default function PwaRegister() {
       className="fixed bottom-5 right-5 z-50 max-w-sm bg-[#EDE5D9]/95 backdrop-blur-md border border-[#DED2C2] text-[#37332F] rounded-2xl p-4 shadow-2xl transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
     >
       <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-xl bg-[#37332F] text-[#F5F0E8] flex items-center justify-center shrink-0 shadow-sm">
-          <Smartphone className="w-5 h-5 text-[#A8B5A0]" />
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/icons/icon-192x192.png"
+          alt="Fazaa Azalea Icon"
+          className="w-12 h-12 rounded-xl object-cover border border-[#DED2C2] shadow-sm shrink-0"
+        />
         <div className="flex-1 min-w-0 pr-2">
           <h4 className="font-cormorant text-lg font-semibold leading-tight text-[#37332F]">
             Pasang Aplikasi Fazaa
