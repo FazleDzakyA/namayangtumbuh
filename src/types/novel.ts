@@ -26,7 +26,7 @@ export interface Chapter {
   literaryPrompts?: string[];
   memories?: MemoryItem[];
   isSpecial?: boolean;
-  specialType?: 'march16' | 'june28' | 'july2' | 'sneha';
+  specialType?: 'march16' | 'june28' | 'july2' | 'sneha' | 'social';
 }
 
 export interface TimelineEvent {

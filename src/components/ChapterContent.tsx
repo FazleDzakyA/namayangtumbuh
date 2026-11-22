@@ -7,6 +7,7 @@ import { Chapter, MemoryItem } from '@/types/novel';
 import MemoryInsert from './MemoryInsert';
 import TicketStub from './TicketStub';
 import SnehaMusicPlayer from './SnehaMusicPlayer';
+import SocialMediaShowcase from './SocialMediaShowcase';
 
 interface ChapterContentProps {
   chapter: Chapter;
@@ -24,6 +25,7 @@ export default function ChapterContent({
   const isDarkConcertChapter = chapter.id === 'chapter-10';
   const isMarch16GiftChapter = chapter.id === 'chapter-07';
   const isJune28CFDChapter = chapter.id === 'chapter-09';
+  const isSocialMediaChapter = chapter.id === 'chapter-05' || chapter.specialType === 'social';
   const isSnehaChapter = chapter.id === 'sneha-dalam-mauna';
   const isEpilogue = chapter.id === 'epilogue';
 
@@ -160,6 +162,9 @@ export default function ChapterContent({
           );
         })}
       </div>
+
+      {/* CHAPTER 05: Special Social Media Showcase (WhatsApp, Instagram, TikTok) */}
+      {isSocialMediaChapter && <SocialMediaShowcase />}
 
       {/* Special Visual Memory Inserts for Key Chapters */}
 
