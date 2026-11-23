@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, BookOpen, Sparkles, Bookmark, Calendar, ArrowRight } from 'lucide-react';
+import { X, BookOpen, Sparkles, Bookmark, Calendar, ArrowRight, BookMarked } from 'lucide-react';
 import { Chapter } from '@/types/novel';
 
 interface ChapterIndexDrawerProps {
@@ -12,6 +12,7 @@ interface ChapterIndexDrawerProps {
   currentChapterId: string;
   bookmarkedChapterId?: string;
   onSelectChapter: (index: number) => void;
+  onOpenCover?: () => void;
 }
 
 export default function ChapterIndexDrawer({
@@ -21,6 +22,7 @@ export default function ChapterIndexDrawer({
   currentChapterId,
   bookmarkedChapterId,
   onSelectChapter,
+  onOpenCover,
 }: ChapterIndexDrawerProps) {
   if (!isOpen) return null;
 
@@ -62,6 +64,27 @@ export default function ChapterIndexDrawer({
               <X className="w-5 h-5" />
             </button>
           </div>
+
+          {/* Quick Action: Sampul Buku */}
+          {onOpenCover && (
+            <div className="px-5 py-2.5 bg-[#EFE8DC] border-b border-[#DED2C2]">
+              <button
+                onClick={() => {
+                  onClose();
+                  onOpenCover();
+                }}
+                className="w-full py-2 px-3 rounded-lg bg-[#FAF6F0] hover:bg-white text-[#37332F] text-xs font-sans-ui flex items-center justify-between transition-all border border-[#DED2C2] shadow-xs group"
+              >
+                <span className="flex items-center gap-2 font-medium">
+                  <BookMarked className="w-4 h-4 text-[#A8B5A0] group-hover:scale-110 transition-transform" />
+                  <span>Lihat Sampul Buku (Depan & Belakang)</span>
+                </span>
+                <span className="text-[10px] text-[#9A8876] uppercase tracking-wider font-semibold">
+                  Fazaa
+                </span>
+              </button>
+            </div>
+          )}
 
           {/* Chapter List */}
           <div className="p-4 sm:p-6 overflow-y-auto space-y-2 flex-1 divide-y divide-[#DED2C2]/40">

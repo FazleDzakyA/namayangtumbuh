@@ -1,90 +1,48 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, Sparkles, Feather, ArrowDown, BookMarked, X, Download } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { BookOpen, Sparkles, Feather, ArrowDown, BookMarked } from 'lucide-react';
 import AmbientAudio from './AmbientAudio';
+import BookCoverModal from './BookCoverModal';
 import { useAudio } from '@/context/AudioContext';
 
 interface OpeningScreenProps {
   onStartReading: () => void;
   onOpenTimeline: () => void;
+  onOpenCover?: () => void;
 }
 
 export default function OpeningScreen({
   onStartReading,
   onOpenTimeline,
+  onOpenCover,
 }: OpeningScreenProps) {
   const { play } = useAudio();
-  const [showCover, setShowCover] = useState(false);
+  const [internalShowCover, setInternalShowCover] = useState(false);
 
   const handleStart = () => {
     play();
     onStartReading();
   };
 
+  const handleOpenCover = () => {
+    if (onOpenCover) {
+      onOpenCover();
+    } else {
+      setInternalShowCover(true);
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-between px-6 py-12 md:py-16 text-center select-none overflow-hidden">
-
-      {/* === COVER LIGHTBOX MODAL === */}
-      <AnimatePresence>
-        {showCover && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4"
-            onClick={() => setShowCover(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.88, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 10 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="relative max-w-sm w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Cover image */}
-              <img
-                src="/cover.svg"
-                alt="Sampul Buku — Nama yang Tumbuh Bersama Waktu"
-                className="w-full h-auto rounded shadow-2xl shadow-black/50"
-                draggable={false}
-              />
-
-              {/* Controls overlay */}
-              <div className="absolute top-3 right-3 flex gap-2">
-                {/* Download button */}
-                <a
-                  href="/cover.svg"
-                  download="sampul-nama-yang-tumbuh.svg"
-                  title="Unduh Sampul"
-                  className="flex items-center justify-center w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 text-white/80 hover:text-white transition-all backdrop-blur-sm"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Download className="w-3.5 h-3.5" />
-                </a>
-                {/* Close button */}
-                <button
-                  onClick={() => setShowCover(false)}
-                  className="flex items-center justify-center w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 text-white/80 hover:text-white transition-all backdrop-blur-sm"
-                  title="Tutup"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              </div>
-
-              {/* Song label at bottom */}
-              <div className="absolute bottom-3 left-0 right-0 text-center">
-                <span className="inline-block text-[10px] font-sans tracking-widest text-white/60 px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm">
-                  ♪ Sampai Jadi Debu — Banda Neira
-                </span>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Book Cover Modal (internal fallback if not managed externally) */}
+      {!onOpenCover && (
+        <BookCoverModal
+          isOpen={internalShowCover}
+          onClose={() => setInternalShowCover(false)}
+        />
+      )}
       {/* Decorative Book Page Background Grain & Border */}
       <div className="absolute inset-4 md:inset-8 border border-[#DED2C2]/70 pointer-events-none rounded-sm transition-all" />
       <div className="absolute inset-5 md:inset-9 border border-[#DED2C2]/30 pointer-events-none rounded-sm" />
@@ -221,7 +179,7 @@ export default function OpeningScreen({
 
           {/* Cover book button */}
           <button
-            onClick={() => setShowCover(true)}
+            onClick={handleOpenCover}
             className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#EDE5D9]/80 border border-[#DED2C2] text-[#37332F] rounded-full text-sm font-sans-ui tracking-wider hover:bg-[#EDE5D9] hover:border-[#9A8876] transition-all duration-300"
           >
             <BookMarked className="w-4 h-4 text-[#9A8876]" />

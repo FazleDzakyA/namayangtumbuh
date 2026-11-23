@@ -19,6 +19,7 @@ import ChapterIndexDrawer from './ChapterIndexDrawer';
 import TimelineView from './TimelineView';
 import PhotoLightbox from './PhotoLightbox';
 import AmbientAudio from './AmbientAudio';
+import BookCoverModal from './BookCoverModal';
 
 const STORAGE_KEY = 'fazaa_novel_bookmark';
 const IMAGES_STORAGE_KEY = 'fazaa_custom_images';
@@ -38,6 +39,7 @@ export default function NovelShell() {
   // Modals & Panels
   const [isIndexDrawerOpen, setIsIndexDrawerOpen] = useState(false);
   const [isTimelineOpen, setIsTimelineOpen] = useState(false);
+  const [isCoverModalOpen, setIsCoverModalOpen] = useState(false);
   const [activeMemory, setActiveMemory] = useState<MemoryItem | null>(null);
 
   // Custom User Uploaded Photos preview state
@@ -150,6 +152,7 @@ export default function NovelShell() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onOpenTimeline={() => setIsTimelineOpen(true)}
+            onOpenCover={() => setIsCoverModalOpen(true)}
           />
 
           {/* Bookmark Continue Toast if exists */}
@@ -330,6 +333,13 @@ export default function NovelShell() {
         currentChapterId={currentChapter.id}
         bookmarkedChapterId={bookmarkedChapterId || undefined}
         onSelectChapter={handleSelectChapter}
+        onOpenCover={() => setIsCoverModalOpen(true)}
+      />
+
+      {/* Book Cover Modal */}
+      <BookCoverModal
+        isOpen={isCoverModalOpen}
+        onClose={() => setIsCoverModalOpen(false)}
       />
 
       {/* Timeline / Memory Map Modal */}
